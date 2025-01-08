@@ -1,172 +1,296 @@
 <!DOCTYPE html>
+<!-- Removing language attribute violates 3.1.1 -->
 <html>
 <head>
+    <!-- Missing title violates 2.4.2 -->
     <style>
-        /* Poor color contrast */
+        /* Extremely poor color contrast - violates 1.4.3 */
         body {
-            background-color: #FFEEEE;
-            color: #FFB6B6;
-            font-size: 8px;
+            background-color: #FEFEFE;
+            color: #EEEEEE;
+            font-size: 6px; /* Too small text - violates 1.4.4 */
+            font-family: cursive; /* Hard to read font - violates 1.4.8 */
+            overflow: hidden; /* Prevents zooming - violates 1.4.10 */
         }
         
-        /* Blinking content that flashes rapidly */
+        /* Multiple rapid flashes - violates 2.3.1 and 2.3.2 */
         .flashing-text {
-            animation: flash 0.2s infinite;
+            animation: flash 0.1s infinite;
+            background: linear-gradient(red, blue);
         }
         
         @keyframes flash {
-            0% { opacity: 1; }
+            0% { opacity: 1; transform: scale(1.2); }
+            25% { opacity: 0; transform: rotate(45deg); }
+            50% { opacity: 1; transform: scale(0.8); }
+            75% { opacity: 0; transform: rotate(-45deg); }
+        }
+
+        /* Tiny click targets - violates 2.5.5 */
+        button, input, .tiny-target {
+            width: 10px;
+            height: 10px;
+            padding: 1px;
+            margin: 0;
+        }
+
+        /* Text that can't be adjusted - violates 1.4.12 */
+        * {
+            line-height: 1 !important;
+            letter-spacing: 0 !important;
+            word-spacing: 0 !important;
+            text-align: justify !important;
+        }
+
+        /* Random positioning - violates 1.3.2 */
+        .random-position {
+            position: absolute;
+            top: Math.random() * 1000 + 'px';
+            left: Math.random() * 1000 + 'px';
+        }
+
+        /* Blinking cursor - violates 2.2.2 */
+        .blink {
+            animation: blink-animation 0.5s infinite;
+        }
+
+        @keyframes blink-animation {
             50% { opacity: 0; }
         }
 
-        /* Content that relies only on color */
-        .error-text {
-            color: red;
+        /* Hide focus indicators - violates 2.4.7 */
+        *:focus {
+            outline: none !important;
+            box-shadow: none !important;
         }
 
-        /* Text that can't be resized */
-        .fixed-text {
-            font-size: 12px !important;
-            line-height: 1 !important;
-            letter-spacing: normal !important;
+        @media (prefers-reduced-motion: reduce) {
+            /* Ignore reduced motion preference - violates 2.3.3 */
+            * { animation: all 0.1s !important; }
         }
 
-        /* Content that doesn't reflow */
-        .no-reflow {
-            width: 500px;
-            overflow-x: auto;
+        /* Prevent text resizing - violates 1.4.4 */
+        html {
+            -webkit-text-size-adjust: none;
+            text-size-adjust: none;
+        }
+        
+        /* Extremely low contrast - violates 1.4.3 and 1.4.6 */
+        * {
+            color: #767676 !important;
+            background: #757575 !important;
+        }
+
+        /* Force horizontal scrolling - violates 1.4.10 */
+        .force-scroll {
+            width: 5000px;
+            overflow-x: scroll;
             white-space: nowrap;
         }
 
-        /* Small click targets */
-        .tiny-button {
-            width: 20px;
-            height: 20px;
-            padding: 2px;
+        /* Tiny touch targets - violates 2.5.5 */
+        a, button, input, select {
+            width: 5px !important;
+            height: 5px !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        /* Seizure-inducing animations - violates 2.3.1 */
+        .seizure {
+            animation: flash-colors 0.1s infinite;
+        }
+
+        @keyframes flash-colors {
+            0% { background: red !important; }
+            25% { background: blue !important; }
+            50% { background: yellow !important; }
+            75% { background: green !important; }
         }
     </style>
 </head>
-<body>
-    <!-- No page language specified -->
-    
-    <!-- No page title -->
-    
-    <!-- Missing headings structure -->
-    <div>Welcome to Our Website</div>
+<body onload="startAutoplay()" onkeydown="return false" oncontextmenu="return false" class="force-scroll">
+    <!-- No semantic structure - violates 1.3.1 -->
+    <div class="random-position">Click somewhere</div>
 
-    <!-- Image without alt text -->
-    <img src="important-graph.jpg">
-
-    <!-- Video without captions or audio descriptions -->
-    <video autoplay>
-        <source src="video.mp4" type="video/mp4">
+    <!-- Multiple autoplaying elements - violates 1.4.2 -->
+    <audio autoplay loop src="loud-music.mp3"></audio>
+    <audio autoplay loop src="background-noise.mp3"></audio>
+    <video autoplay loop muted>
+        <source src="flashing-video.mp4" type="video/mp4">
     </video>
 
-    <!-- Audio that auto-plays without controls -->
-    <audio autoplay src="background-music.mp3"></audio>
+    <!-- Images without alt text and meaningful content - violates 1.1.1 -->
+    <img src="important-info.jpg">
+    <img src="chart.png">
+    <img src="data.gif">
 
-    <!-- Rapidly flashing content -->
-    <div class="flashing-text">This text flashes rapidly!</div>
-
-    <!-- Color-only information -->
-    <p>Fields marked in <span class="error-text">red</span> are required</p>
-
-    <!-- Form without labels -->
-    <form>
-        <input type="text" placeholder="Enter name">
-        <input type="password" placeholder="Enter password">
-        <input type="submit" class="tiny-button" value="OK">
-    </form>
-
-    <!-- Keyboard trap -->
-    <div tabindex="0" onkeydown="return false;">
-        You can't escape this div with keyboard
+    <!-- Rapidly changing content - violates 2.2.2 -->
+    <div class="flashing-text blink">
+        IMPORTANT INFORMATION FLASHING QUICKLY
     </div>
 
-    <!-- Content that relies on specific sensory characteristics -->
-    <p>Click the round button on the right side of the screen</p>
+    <!-- Color-only indicators - violates 1.4.1 -->
+    <div style="color: red">Error</div>
+    <div style="color: green">Success</div>
+    <div style="color: yellow">Warning</div>
 
-    <!-- Time-limited content -->
-    <div id="time-limited">
-        This content will disappear in 10 seconds
+    <!-- Keyboard traps - violates 2.1.2 -->
+    <div tabindex="0" onkeydown="event.preventDefault()">
+        <input type="text" onkeydown="event.preventDefault()">
+        <button onkeydown="event.preventDefault()">Trapped</button>
+    </div>
+
+    <!-- Complex gestures without alternatives - violates 2.5.1 -->
+    <div id="gesture-area" ondblclick="alert('No simple alternative')">
+        Requires triple-finger pinch to zoom
+    </div>
+
+    <!-- Motion-required interactions - violates 2.5.4 -->
+    <div id="motion-sensor">
+        Shake device vigorously to submit form
+    </div>
+
+    <!-- Time limits without controls - violates 2.2.1 -->
+    <div id="disappearing-content">
+        This content will vanish without warning
+    </div>
+
+    <!-- Inconsistent navigation - violates 3.2.3 -->
+    <nav class="random-position">
+        <a href="#">Random Link 1</a>
+        <a href="#">>>>></a>
+        <a href="#">Click This!</a>
+    </nav>
+
+    <!-- Form without labels or error handling - violates 3.3.2 -->
+    <form onsubmit="return false">
+        <input type="text" placeholder="?" class="tiny-target">
+        <input type="password" placeholder="?" class="tiny-target">
+        <button type="submit" class="tiny-target">?</button>
+    </form>
+
+    <!-- No page structure - violates 1.3.1 -->
+    <div>
+        <span>Main content</span>
+        <span>Navigation</span>
+        <span>Footer</span>
+    </div>
+
+    <!-- Meaningless link text - violates 2.4.4 and 2.4.9 -->
+    <a href="#">→</a>
+    <a href="#">...</a>
+    <a href="#">[1]</a>
+
+    <!-- Audio with speech - violates 1.4.7 -->
+    <audio autoplay loop>
+        <source src="loud-speech-with-music.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Time-based session - violates 2.2.1 and 2.2.6 -->
+    <div id="session-timeout">
         <script>
             setTimeout(() => {
-                document.getElementById('time-limited').style.display = 'none';
-            }, 10000);
+                window.location.href = 'logout.html';
+            }, 60000); // Force logout without warning
         </script>
     </div>
 
-    <!-- Non-meaningful sequence -->
-    <div style="display: flex; flex-direction: column-reverse;">
-        <p>3. Final step</p>
-        <p>2. Second step</p>
-        <p>1. First step</p>
-    </div>
+    <!-- Inaccessible PDF - violates 1.1.1 -->
+    <embed src="scanned-text.pdf" width="100%" height="100%">
 
-    <!-- Motion-activated features -->
-    <div id="motion-content">
-        Shake your device to submit the form
-    </div>
+    <!-- Language changes without indication - violates 3.1.2 -->
+    <p>English text followed by español sin indicación del cambio de idioma</p>
 
-    <!-- Complex gesture requirement -->
-    <div id="gesture-area">
-        Triple-finger swipe required to open menu
-    </div>
+    <!-- Abbreviations without explanation - violates 3.1.4 -->
+    <p>The HTML DOM API WCAG SDK requires a CDN URL for the CMS GUI.</p>
 
-    <!-- Non-descriptive links -->
-    <a href="#">Click here</a>
-    <a href="#">Read more</a>
-    <a href="#">>>></a>
+    <!-- Technical content without simpler alternative - violates 3.1.5 -->
+    <p>The quantum chromodynamics algorithm utilizes stochastic gradient descent for optimizing the hyperparameter matrix.</p>
 
-    <!-- Content changes on hover without ability to dismiss -->
-    <div onmouseover="this.innerHTML='Surprise content!'">
-        Hover over me
-    </div>
-
-    <!-- Form without error handling -->
-    <form onsubmit="return false;">
-        <input type="email" required>
-        <button type="submit">Submit</button>
+    <!-- Form with no error prevention - violates 3.3.4 and 3.3.6 -->
+    <form id="critical-form" onsubmit="submitImmediately()">
+        <input type="text" required>
+        <button type="submit">Submit Irreversible Action</button>
     </form>
 
-    <!-- Text as images -->
-    <img src="text-as-image.png" alt="Important information in image format">
+    <!-- Content that changes on focus - violates 3.2.1 -->
+    <input type="text" onfocus="this.form.submit()">
 
-    <!-- Inconsistent navigation -->
-    <nav>
-        <a href="#" style="position: absolute; left: Math.random() * 500">Random Nav Item</a>
-    </nav>
-
-    <!-- Content requiring specific orientation -->
-    <div style="display: none; orientation: landscape;">
-        This content only shows in landscape mode
-    </div>
-
-    <!-- Abbreviations without explanations -->
-    <p>The WCAG (no explanation provided) guidelines are important.</p>
-
-    <!-- Status updates not announced to screen readers -->
-    <div id="status-update">
-        Your form has been submitted
-    </div>
+    <!-- Inconsistent functionality - violates 3.2.4 -->
+    <button onclick="randomFunction()">Search</button>
+    <button onclick="randomFunction()">Delete</button>
+    <button onclick="randomFunction()">Save</button>
 
     <script>
-        // JavaScript that breaks keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            if(e.key === 'Tab') {
-                e.preventDefault();
-            }
-        });
+        // Break all keyboard functionality
+        document.addEventListener('keydown', (e) => e.preventDefault());
 
-        // Auto-focus trap
+        // Random focus changes
         setInterval(() => {
-            document.querySelector('.tiny-button').focus();
-        }, 1000);
+            document.querySelectorAll('*')[
+                Math.floor(Math.random() * document.querySelectorAll('*').length)
+            ].focus();
+        }, 500);
 
         // Random page redirects
-        setTimeout(() => {
-            window.location.href = 'another-page.html';
-        }, 30000);
+        setInterval(() => {
+            window.location.href = Math.random() > 0.5 ? 'page1.html' : 'page2.html';
+        }, 5000);
+
+        // Auto-play multiple sounds
+        function startAutoplay() {
+            document.querySelectorAll('audio, video').forEach(el => el.play());
+        }
+
+        // Random content changes
+        setInterval(() => {
+            document.body.innerHTML += '<div class="random-position blink">' + 
+                Math.random() + '</div>';
+        }, 1000);
+
+        // Disable right-click and context menu
+        document.addEventListener('contextmenu', e => e.preventDefault());
+
+        // Force landscape orientation
+        screen.orientation.lock('landscape');
+
+        // Disable zoom
+        document.addEventListener('wheel', e => {
+            if(e.ctrlKey) e.preventDefault();
+        }, { passive: false });
+
+        // Force screen reader to re-read everything - violates 4.1.2
+        setInterval(() => {
+            document.body.setAttribute('aria-live', 'assertive');
+            document.body.innerHTML += ' ';
+        }, 100);
+
+        // Random functionality - violates 3.2.4
+        function randomFunction() {
+            const actions = ['save', 'delete', 'cancel', 'submit', 'reset'];
+            const randomAction = actions[Math.floor(Math.random() * actions.length)];
+            alert('Performing: ' + randomAction);
+        }
+
+        // Seizure-inducing background - violates 2.3.1
+        setInterval(() => {
+            document.body.style.backgroundColor = 
+                '#' + Math.floor(Math.random()*16777215).toString(16);
+        }, 50);
+
+        // Force orientation changes - violates 1.3.4
+        setInterval(() => {
+            screen.orientation.lock(
+                Math.random() > 0.5 ? 'portrait' : 'landscape'
+            );
+        }, 2000);
+
+        // Prevent back button - violates 2.1.1
+        history.pushState(null, null, location.href);
+        window.onpopstate = function() {
+            history.go(1);
+        };
     </script>
 </body>
 </html> 
