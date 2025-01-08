@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* Poor color contrast */
+        body {
+            background-color: #FFEEEE;
+            color: #FFB6B6;
+            font-size: 8px;
+        }
+        
+        /* Blinking content that flashes rapidly */
+        .flashing-text {
+            animation: flash 0.2s infinite;
+        }
+        
+        @keyframes flash {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Content that relies only on color */
+        .error-text {
+            color: red;
+        }
+
+        /* Text that can't be resized */
+        .fixed-text {
+            font-size: 12px !important;
+            line-height: 1 !important;
+            letter-spacing: normal !important;
+        }
+
+        /* Content that doesn't reflow */
+        .no-reflow {
+            width: 500px;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        /* Small click targets */
+        .tiny-button {
+            width: 20px;
+            height: 20px;
+            padding: 2px;
+        }
+    </style>
+</head>
+<body>
+    <!-- No page language specified -->
+    
+    <!-- No page title -->
+    
+    <!-- Missing headings structure -->
+    <div>Welcome to Our Website</div>
+
+    <!-- Image without alt text -->
+    <img src="important-graph.jpg">
+
+    <!-- Video without captions or audio descriptions -->
+    <video autoplay>
+        <source src="video.mp4" type="video/mp4">
+    </video>
+
+    <!-- Audio that auto-plays without controls -->
+    <audio autoplay src="background-music.mp3"></audio>
+
+    <!-- Rapidly flashing content -->
+    <div class="flashing-text">This text flashes rapidly!</div>
+
+    <!-- Color-only information -->
+    <p>Fields marked in <span class="error-text">red</span> are required</p>
+
+    <!-- Form without labels -->
+    <form>
+        <input type="text" placeholder="Enter name">
+        <input type="password" placeholder="Enter password">
+        <input type="submit" class="tiny-button" value="OK">
+    </form>
+
+    <!-- Keyboard trap -->
+    <div tabindex="0" onkeydown="return false;">
+        You can't escape this div with keyboard
+    </div>
+
+    <!-- Content that relies on specific sensory characteristics -->
+    <p>Click the round button on the right side of the screen</p>
+
+    <!-- Time-limited content -->
+    <div id="time-limited">
+        This content will disappear in 10 seconds
+        <script>
+            setTimeout(() => {
+                document.getElementById('time-limited').style.display = 'none';
+            }, 10000);
+        </script>
+    </div>
+
+    <!-- Non-meaningful sequence -->
+    <div style="display: flex; flex-direction: column-reverse;">
+        <p>3. Final step</p>
+        <p>2. Second step</p>
+        <p>1. First step</p>
+    </div>
+
+    <!-- Motion-activated features -->
+    <div id="motion-content">
+        Shake your device to submit the form
+    </div>
+
+    <!-- Complex gesture requirement -->
+    <div id="gesture-area">
+        Triple-finger swipe required to open menu
+    </div>
+
+    <!-- Non-descriptive links -->
+    <a href="#">Click here</a>
+    <a href="#">Read more</a>
+    <a href="#">>>></a>
+
+    <!-- Content changes on hover without ability to dismiss -->
+    <div onmouseover="this.innerHTML='Surprise content!'">
+        Hover over me
+    </div>
+
+    <!-- Form without error handling -->
+    <form onsubmit="return false;">
+        <input type="email" required>
+        <button type="submit">Submit</button>
+    </form>
+
+    <!-- Text as images -->
+    <img src="text-as-image.png" alt="Important information in image format">
+
+    <!-- Inconsistent navigation -->
+    <nav>
+        <a href="#" style="position: absolute; left: Math.random() * 500">Random Nav Item</a>
+    </nav>
+
+    <!-- Content requiring specific orientation -->
+    <div style="display: none; orientation: landscape;">
+        This content only shows in landscape mode
+    </div>
+
+    <!-- Abbreviations without explanations -->
+    <p>The WCAG (no explanation provided) guidelines are important.</p>
+
+    <!-- Status updates not announced to screen readers -->
+    <div id="status-update">
+        Your form has been submitted
+    </div>
+
+    <script>
+        // JavaScript that breaks keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if(e.key === 'Tab') {
+                e.preventDefault();
+            }
+        });
+
+        // Auto-focus trap
+        setInterval(() => {
+            document.querySelector('.tiny-button').focus();
+        }, 1000);
+
+        // Random page redirects
+        setTimeout(() => {
+            window.location.href = 'another-page.html';
+        }, 30000);
+    </script>
+</body>
+</html> 
